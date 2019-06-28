@@ -421,7 +421,7 @@ class Carousel extends Component {
     }
 
     setPosition = (position, forceReflow) => {
-        const list = ReactDOM.findDOMNode(this.listRef);        
+        const list = ReactDOM.findDOMNode(this.listRef);
         [
             'WebkitTransform',
             'MozTransform',
@@ -450,7 +450,7 @@ class Carousel extends Component {
         this.moveTo(this.state.selectedItem + (typeof positions === 'number' ? positions : 1), fromSwipe);
     }
 
-    moveTo = (position, fromSwipe) => {        
+    moveTo = (position, fromSwipe) => {
         const lastPosition = Children.count(this.props.children) - 1;
         const needClonedSlide = this.props.infiniteLoop && !fromSwipe && (position < 0 || position > lastPosition);
         const oldPosition = position;
@@ -536,9 +536,11 @@ class Carousel extends Component {
         return images && images[selectedItem];
     }
 
-    getVariableImageHeight = (position) => {
+    getVariableHeight = (position) => {
         const item = this.itemsRef && this.itemsRef[position];
         const images = item && item.getElementsByTagName('img');
+        const divs = item && item.getElementsByTagName('div');
+
         if (this.state.hasMount && images.length > 0) {
             const image = images[0];
 
@@ -554,6 +556,10 @@ class Carousel extends Component {
 
             const height = image.clientHeight;
             return height > 0 ? height : null;
+
+        } else if (this.state.hasMount && divs.length > 0) {
+            return divs[0].offsetHeight;
+
         }
 
         return null;
@@ -681,12 +687,12 @@ class Carousel extends Component {
             swiperProps.onSwipeRight = this.onSwipeBackwards;
 
             if (this.props.dynamicHeight) {
-                const itemHeight = this.getVariableImageHeight(this.state.selectedItem);
+                const itemHeight = this.getVariableHeight(this.state.selectedItem);
                 swiperProps.style.height = itemHeight || 'auto';
                 containerStyles.height = itemHeight || 'auto';
             }
 
-        } else {            
+        } else {
             swiperProps.onSwipeUp = this.props.verticalSwipe === 'natural' ? this.onSwipeBackwards : this.onSwipeForward;
             swiperProps.onSwipeDown = this.props.verticalSwipe === 'natural' ? this.onSwipeForward : this.onSwipeBackwards;
             swiperProps.style.height = this.state.itemSize;
