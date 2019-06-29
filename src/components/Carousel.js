@@ -557,7 +557,7 @@ class Carousel extends Component {
         // }
         //
         // return null;
-      return 500;
+        return 700;
     }
 
     renderItems (isClone) {
@@ -681,7 +681,7 @@ class Carousel extends Component {
             swiperProps.onSwipeLeft = this.onSwipeForward;
             swiperProps.onSwipeRight = this.onSwipeBackwards;
 
-            if (this.props.dynamicHeight) {
+            if (!this.props.dynamicHeight) {
                 const itemHeight = this.getVariableImageHeight(this.state.selectedItem);
                 swiperProps.style.height = itemHeight || 'auto';
                 containerStyles.height = itemHeight || 'auto';
