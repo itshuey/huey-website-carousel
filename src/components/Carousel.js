@@ -537,26 +537,27 @@ class Carousel extends Component {
     }
 
     getVariableImageHeight = (position) => {
-        const item = this.itemsRef && this.itemsRef[position];
-        const images = item && item.getElementsByTagName('img');
-        if (this.state.hasMount && images.length > 0) {
-            const image = images[0];
-
-            if (!image.complete) {
-                // if the image is still loading, the size won't be available so we trigger a new render after it's done
-                const onImageLoad = () => {
-                    this.forceUpdate();
-                    image.removeEventListener('load', onImageLoad);
-                }
-
-                image.addEventListener('load', onImageLoad);
-            }
-
-            const height = image.clientHeight;
-            return height > 0 ? height : null;
-        }
-
-        return null;
+        // const item = this.itemsRef && this.itemsRef[position];
+        // const images = item && item.getElementsByTagName('img');
+        // if (this.state.hasMount && images.length > 0) {
+        //     const image = images[0];
+        //
+        //     if (!image.complete) {
+        //         // if the image is still loading, the size won't be available so we trigger a new render after it's done
+        //         const onImageLoad = () => {
+        //             this.forceUpdate();
+        //             image.removeEventListener('load', onImageLoad);
+        //         }
+        //
+        //         image.addEventListener('load', onImageLoad);
+        //     }
+        //
+        //     const height = image.clientHeight;
+        //     return height > 0 ? height : null;
+        // }
+        //
+        // return null;
+      return 500;
     }
 
     renderItems (isClone) {
