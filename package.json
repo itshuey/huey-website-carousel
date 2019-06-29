@@ -1,10 +1,10 @@
 {
-  "name": "react-responsive-carousel",
+  "name": "huey-webpage-carousel",
   "version": "3.1.49",
-  "description": "React Responsive Carousel",
+  "description": "React Responsive Carousel Modified by Huey",
   "author": {
-    "name": "Leandro Augusto Lemos",
-    "url": "http://leandrowd.github.io/"
+    "name": "Huey Sun, Leandro Augusto Lemos",
+    "url": "http://itshuey.github.io"
   },
   "main": "./lib/index.js",
   "license": "MIT",
@@ -39,14 +39,6 @@
     "build-storybook": "build-storybook -s ./src -o ./dist/storybook",
     "changelog": "auto-changelog --ignore-commit-pattern=\"(Merge pull request|Merge branch|Updating changelog|Prepare for publishing)\""
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/leandrowd/react-responsive-carousel.git"
-  },
-  "bugs": {
-    "url": "https://github.com/leandrowd/react-responsive-carousel/issues"
-  },
-  "homepage": "http://leandrowd.github.io/react-responsive-carousel/",
   "devDependencies": {
     "@kadira/react-storybook-addon-info": "^3.4.0",
     "@kadira/storybook": "^2.35.3",

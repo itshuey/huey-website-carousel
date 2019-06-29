@@ -536,11 +536,9 @@ class Carousel extends Component {
         return images && images[selectedItem];
     }
 
-    getVariableHeight = (position) => {
+    getVariableImageHeight = (position) => {
         const item = this.itemsRef && this.itemsRef[position];
         const images = item && item.getElementsByTagName('img');
-        const divs = item && item.getElementsByTagName('div');
-
         if (this.state.hasMount && images.length > 0) {
             const image = images[0];
 
@@ -556,10 +554,6 @@ class Carousel extends Component {
 
             const height = image.clientHeight;
             return height > 0 ? height : null;
-
-        } else if (this.state.hasMount && divs.length > 0) {
-            return divs[0].offsetHeight;
-
         }
 
         return null;
@@ -687,7 +681,7 @@ class Carousel extends Component {
             swiperProps.onSwipeRight = this.onSwipeBackwards;
 
             if (this.props.dynamicHeight) {
-                const itemHeight = this.getVariableHeight(this.state.selectedItem);
+                const itemHeight = this.getVariableImageHeight(this.state.selectedItem);
                 swiperProps.style.height = itemHeight || 'auto';
                 containerStyles.height = itemHeight || 'auto';
             }
