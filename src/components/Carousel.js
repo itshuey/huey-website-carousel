@@ -6,6 +6,7 @@ import CSSTranslate from '../CSSTranslate';
 import Swipe from 'react-easy-swipe';
 import Thumbs from './Thumbs';
 import * as customPropTypes from '../customPropTypes';
+import ReactResizeDetector from 'react-resize-detector';
 
 const noop = () => {};
 
@@ -41,7 +42,8 @@ class Carousel extends Component {
         emulateTouch: PropTypes.bool,
         statusFormatter: PropTypes.func.isRequired,
         centerMode: PropTypes.bool,
-        centerSlidePercentage: PropTypes.number
+        centerSlidePercentage: PropTypes.number,
+        resizingHeight: PropTypes.boolean,
     };
 
     static defaultProps = {
@@ -286,7 +288,8 @@ class Carousel extends Component {
 
         this.setState((_state, props) => ({
             itemSize: itemSize,
-            wrapperSize: isHorizontal ? itemSize * Children.count(props.children) : itemSize
+            wrapperSize: isHorizontal ? itemSize * Children.count(props.children) : itemSize,
+            resizingHeight: false,
         }));
 
         if (this.thumbsRef) {
@@ -335,6 +338,11 @@ class Carousel extends Component {
         this.selectItem({
             selectedItem: index
         });
+    }
+
+    handleResize = () => {
+      this.setState({ resizingHeight: true });
+      this.updateSizes();
     }
 
     onSwipeStart = () => {
@@ -536,28 +544,31 @@ class Carousel extends Component {
         return images && images[selectedItem];
     }
 
-    getVariableImageHeight = (position) => {
-        // const item = this.itemsRef && this.itemsRef[position];
-        // const images = item && item.getElementsByTagName('img');
-        // if (this.state.hasMount && images.length > 0) {
-        //     const image = images[0];
-        //
-        //     if (!image.complete) {
-        //         // if the image is still loading, the size won't be available so we trigger a new render after it's done
-        //         const onImageLoad = () => {
-        //             this.forceUpdate();
-        //             image.removeEventListener('load', onImageLoad);
-        //         }
-        //
-        //         image.addEventListener('load', onImageLoad);
-        //     }
-        //
-        //     const height = image.clientHeight;
-        //     return height > 0 ? height : null;
-        // }
-        //
-        // return null;
-        return 700;
+    getVariableHeight = (position) => {
+        const item = this.itemsRef && this.itemsRef[position];
+        const images = item && item.getElementsByTagName('img');
+        const divs = item && item.getElementsByTagName('div');
+        if (this.state.hasMount && divs.length > 0) {
+          return divs[0].offsetHeight;
+
+        } else if (this.state.hasMount && images.length > 0) {
+            const image = images[0];
+
+            if (!image.complete) {
+                // if the image is still loading, the size won't be available so we trigger a new render after it's done
+                const onImageLoad = () => {
+                    this.forceUpdate();
+                    image.removeEventListener('load', onImageLoad);
+                }
+
+                image.addEventListener('load', onImageLoad);
+            }
+
+            const height = image.clientHeight;
+            return height > 0 ? height : null;
+        }
+
+        return null;
     }
 
     renderItems (isClone) {
@@ -681,8 +692,8 @@ class Carousel extends Component {
             swiperProps.onSwipeLeft = this.onSwipeForward;
             swiperProps.onSwipeRight = this.onSwipeBackwards;
 
-            if (!this.props.dynamicHeight) {
-                const itemHeight = this.getVariableImageHeight(this.state.selectedItem);
+            if (this.props.dynamicHeight) {
+                const itemHeight = this.getVariableHeight(this.state.selectedItem);
                 swiperProps.style.height = itemHeight || 'auto';
                 containerStyles.height = itemHeight || 'auto';
             }
@@ -705,6 +716,11 @@ class Carousel extends Component {
                                 {...swiperProps}
                                 allowMouseEvents={this.props.emulateTouch}>
                                 { this.props.infiniteLoop && lastClone }
+                                <ReactResizeDetector
+                                    handleHeight={true}
+                                    querySelector={"div[name='resizable slide']"}
+                                    onResize={this.handleResize}
+                                />
                                 { this.renderItems() }
                                 { this.props.infiniteLoop && firstClone }
                             </Swipe> :

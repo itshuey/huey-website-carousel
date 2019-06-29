@@ -1,6 +1,6 @@
 {
   "name": "huey-website-carousel",
-  "version": "3.1.50",
+  "version": "4.0.0",
   "description": "React Responsive Carousel Modified by Huey",
   "author": {
     "name": "Huey Sun, Leandro Augusto Lemos",
@@ -28,7 +28,6 @@
     "start": "node --harmony ./node_modules/gulp/bin/gulp",
     "test": "jest",
     "update-snapshots": "jest --updateSnapshot",
-    "prebuild": "npm test",
     "build": "babel ./src -d lib --ignore '__tests__' && gulp styles:package copy:package",
     "prepublish-to-npm": "git pull && npm run build && git add . && git commit -m 'Prepare for publishing'",
     "publish-to-npm": "(git pull origin master && npm version patch && git push origin master && npm publish && git push --tags)",
@@ -76,6 +75,7 @@
     "react-test-renderer": "^15.5.4",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
+    "typescript": "^3.5.2",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.11.1"
   },
@@ -94,6 +94,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "prop-types": "^15.5.8",
-    "react-easy-swipe": "^0.0.16"
+    "react-easy-swipe": "^0.0.16",
+    "react-resize-detector": "^4.2.0"
   }
 }
