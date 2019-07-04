@@ -595,7 +595,7 @@ class Carousel extends Component {
     }
 
     renderControls () {
-        if (!this.props.showIndicators) {
+        if (!this.props.showIndicators || !this.state.selectedItem) {
             return null
         }
 
@@ -729,6 +729,11 @@ class Carousel extends Component {
                                 ref={this.setListRef}
                                 style={itemListStyles}>
                                 { this.props.infiniteLoop && lastClone }
+                                <ReactResizeDetector
+                                    handleHeight={true}
+                                    querySelector={"div[name='resizable slide']"}
+                                    onResize={this.handleResize}
+                                />
                                 { this.renderItems() }
                                 { this.props.infiniteLoop && firstClone }
                             </ul>

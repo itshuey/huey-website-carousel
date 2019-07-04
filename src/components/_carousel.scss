@@ -55,12 +55,6 @@
 	  	box-sizing: border-box;
 	}
 
-	img {
-		width: 100%;
-		display: inline-block;
-        pointer-events: none;
-	}
-
 	.carousel {
 		position: relative;
 	}
@@ -101,16 +95,13 @@
 
 		&:focus {
 			border: 3px solid #ccc;
-			outline: none;			
+			outline: none;
 		}
 
 		&.selected, &:hover {
 			border: 3px solid $color-primary;
 		}
 
-		img {
-			vertical-align: top;
-		}
 	}
 
 	&.carousel-slider {
@@ -196,12 +187,6 @@
 		text-align: center;
 		background: #000;
 		// padding-bottom: 32px;
-
-		img {
-			width: 100%;
-			vertical-align: top;
-			border: 0;
-		}
 
 		iframe {
 			display: inline-block;

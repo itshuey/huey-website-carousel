@@ -52,10 +52,6 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box; }
-  .carousel img {
-    width: 100%;
-    display: inline-block;
-    pointer-events: none; }
   .carousel .carousel {
     position: relative; }
   .carousel .control-arrow {
@@ -100,8 +96,6 @@
       outline: none; }
     .carousel .thumb.selected, .carousel .thumb:hover {
       border: 3px solid #333; }
-    .carousel .thumb img {
-      vertical-align: top; }
   .carousel.carousel-slider {
     position: relative;
     margin: 0;
@@ -164,10 +158,6 @@
     position: relative;
     text-align: center;
     background: #000; }
-    .carousel .slide img {
-      width: 100%;
-      vertical-align: top;
-      border: 0; }
     .carousel .slide iframe {
       display: inline-block;
       width: calc(100% - 80px);
